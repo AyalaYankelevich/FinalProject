@@ -1,0 +1,14 @@
+using Dal.API;
+using Bl.API;
+using Dal.Services;
+using Dal.Models;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Dal;
+using Bl;
+using Project;
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddSingleton<IBl, BLManager>();
+var app = builder.Build();
+app.MapControllers();
+app.Run();
