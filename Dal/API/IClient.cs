@@ -11,7 +11,7 @@ namespace Dal.API
     public interface IClient : ICrud<Client>
     {
 
-
+        public Client ReadByID(int id);
 
     }
 }

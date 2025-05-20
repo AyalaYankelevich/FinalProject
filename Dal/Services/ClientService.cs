@@ -21,6 +21,7 @@ namespace Dal.Services
             db.SaveChanges();
         }
 
+
         public void Delete(Client item)
         {
             db.Clients.Remove(item);
@@ -31,7 +32,10 @@ namespace Dal.Services
         {
             return db.Clients.ToList();
         }
-
+        public Client ReadByID(int id)
+        {
+            return db.Clients.FirstOrDefault(c => c.Id .Equals(id));
+        }
         public void Update(Client item)
         {
             var clientToUpdate = db.Clients.FirstOrDefault(clientToUpdate => clientToUpdate.Id == item.Id);

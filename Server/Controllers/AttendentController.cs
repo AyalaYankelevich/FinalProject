@@ -40,8 +40,13 @@ namespace Server.Controllers
         {
             return Ok(_attendentService.Read());
         }
+        [HttpGet("get/{id}")]
+        //public IActionResult GetAttendentById(int id)
+        //{
+        //    return base.Ok(_attendentService.ReadByID(id));
+        //}
 
-        [HttpPut("update")]
+        [HttpPost("update")]
         public IActionResult UpdateAttendent([FromBody] BLAttendent attendent)
         {
             try

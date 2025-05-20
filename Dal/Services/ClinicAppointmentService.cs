@@ -73,9 +73,9 @@ namespace Dal.Services
         }
 
 
-        List<ClinicAppointment> ICrud<ClinicAppointment>.Read()
-        {
-            throw new NotImplementedException();
-        }
+        //List<ClinicAppointment> ICrud<ClinicAppointment>.Read()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

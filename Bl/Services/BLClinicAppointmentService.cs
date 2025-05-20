@@ -24,12 +24,16 @@ namespace Bl.Services
             if (IsExists != null)
             {
                 _clinicAppointment.Create(new ClinicAppointment
-                {
-
-                }
+                { 
                     
-                    
-                    );
+                        Id = item.Id,
+                        Date = item.Date,
+                        Hour = item.Hour,
+                      ClinetId = item.ClinetId,
+                    AttendentId = item.AttendentId,
+                    IsReserved = item.IsReserved
+                    });
+                   
             }
         }
 
@@ -117,6 +121,24 @@ namespace Bl.Services
 
             return LS;
         }
+        public List<MyAppointment> MyAppointment(int id) {
+            List<MyAppointment> LS = new List<MyAppointment>();
+            _clinicAppointment.Read().ForEach(
+             p =>
+             {
+                 if (p.Clinet.Id == id)
+                 {
+                     LS.Add(new MyAppointment
+                     {
+                         Date = p.Date,
+                         Hour = p.Hour,
+              
+                     });
+                 }
+             });
+            return LS;
+        }
+
 
     }
 }

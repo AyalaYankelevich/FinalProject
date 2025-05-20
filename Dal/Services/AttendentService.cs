@@ -47,6 +47,10 @@ namespace Dal.Services
         {
             return databaseManager.Attendents.ToList();
         }
+        public Attendent ReadByID(int id)
+        {
+            return databaseManager.Attendents.FirstOrDefault(c => c.Id.Equals(id));
+        }
 
         public void Update(Attendent item)
         {

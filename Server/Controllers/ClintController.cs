@@ -1,5 +1,6 @@
 ﻿using Bl.API;
 using Bl.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers
@@ -16,7 +17,7 @@ namespace Server.Controllers
         }
 
         [HttpPut]
-        public ActionResult<BLClient> AddClient([FromBody] BLClient c)
+        public ActionResult<BLClient> AddClient([FromQuery] BLClient c)
         {
             _clientService.Create(c);
         return c;
@@ -36,13 +37,28 @@ namespace Server.Controllers
             }
         }
 
-        [HttpGet("get")]
+        [HttpGet("getAll")]
         public IActionResult GetClients()
         {
             return Ok(_clientService.Read());
         }
 
-        [HttpPut("update")]
+        [HttpGet("get")]
+        public IActionResult GetClientsById([FromQuery] int id)
+        {
+            var client = _clientService.ReadByID(id);
+            if (client != null)
+            {
+                return Ok(client);
+            }
+            else
+            {
+                return BadRequest("Client not found");
+            }
+        }
+
+
+        [HttpPost("update")]
         public IActionResult UpdateClient([FromBody] BLClient client)
         {
             try

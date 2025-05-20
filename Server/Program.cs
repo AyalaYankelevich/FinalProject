@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Dal;
 using Bl;
 using Project;
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
@@ -15,9 +17,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policyBuilder =>
     {
-        policyBuilder.WithOrigins("http://localhost:5174") // React app origin
-                     .AllowAnyHeader() // Allow all headers
-                     .AllowAnyMethod(); // Allow all HTTP methods (GET, POST, etc.)
+        policyBuilder.WithOrigins("http://localhost:5173") 
+                     .AllowAnyHeader() 
+                     .AllowAnyMethod(); 
     });
 });
 
@@ -25,7 +27,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddSingleton<IBl, BLManager>();
 var app = builder.Build();
 
-// Use the CORS policy
+
 app.UseCors("AllowReactApp");
 
 app.MapControllers();

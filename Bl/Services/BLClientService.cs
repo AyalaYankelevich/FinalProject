@@ -67,6 +67,28 @@ namespace Bl.Services
             return result;
         }
 
+        public BLClient ReadByID(int id)
+
+        {
+            var client = _client.ReadByID(id);
+            if (client == null)
+            {
+                return null;
+            }
+            BLClient client1;
+            client1 = new BLClient
+            {
+                Id = client.Id,
+                Address = client.Address,
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                Email = client.Email,
+                NumberPhone = client.NumberPhone,
+                DateOfBirth = client.DateOfBirth
+            };
+            
+            return  client1;
+        }
         public void Update(BLClient item)
         {
             var clientToUpdate = _client.Read().FirstOrDefault(clientToUpdate

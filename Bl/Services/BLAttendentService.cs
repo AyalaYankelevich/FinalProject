@@ -2,6 +2,7 @@
 using Bl.Models;
 using Dal.API;
 using Dal.Models;
+using Dal.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +80,8 @@ namespace Bl.Services
                     LastName = item.LastName,
                     NumberPhone = item.NumberPhone,
                     Kind = item.Kind
-                });
+                }
+               ); 
             }
         }
 
@@ -99,5 +101,22 @@ namespace Bl.Services
 
             return LS;
         }
+
+        public BLAttendent ReadByID(int id)
+        {
+
+            var attendent = _attendent.ReadByID(id);
+            BLAttendent attendent1;
+            attendent1 = new BLAttendent{
+                Id = attendent.Id,
+                FirstName = attendent.FirstName,
+                LastName = attendent.LastName,
+                NumberPhone = attendent.NumberPhone,
+                Kind = attendent.Kind,
+             };
+            return attendent1;
+
+        }
     }
+
 }

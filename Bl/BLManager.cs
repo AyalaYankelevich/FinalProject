@@ -1,4 +1,5 @@
 ﻿using Bl.API;
+using Bl.Models;
 using Bl.Services;
 using Dal.API;
 using Dal.Models;
@@ -24,6 +25,7 @@ namespace Bl
             services.AddSingleton<IBLClient, BLClientService>();
             services.AddSingleton<IBLClinicAppointment, BLClinicAppointmentService>();
             services.AddSingleton<IBLAttendent, BLAttendentService>();
+
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             Dal = serviceProvider.GetRequiredService<IDal>();
 

@@ -9,6 +9,10 @@ namespace Bl.API
 {
     public interface IBLClient:IBLCrud<BLClient>
     {
+        public BLClient ReadByID(int id);
+
+     
+
 
     }
 }
