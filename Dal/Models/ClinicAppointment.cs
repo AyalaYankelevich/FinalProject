@@ -13,7 +13,7 @@ public partial class ClinicAppointment
 
     public int AttendentId { get; set; }
 
-    public int ClinetId { get; set; }
+    public int? ClinetId { get; set; }
 
     public int IsReserved { get; set; }
 

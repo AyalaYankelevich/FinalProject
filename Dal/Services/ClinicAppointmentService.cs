@@ -49,7 +49,7 @@ namespace Dal.Services
 
         public List<ClinicAppointment> Read()
         {
-            return databaseManager.ClinicAppointments.ToList();
+             return databaseManager.ClinicAppointments.ToList();
         }
 
         public void Update(ClinicAppointment item)
