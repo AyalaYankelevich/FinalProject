@@ -117,6 +117,27 @@ namespace Bl.Services
             return attendent1;
 
         }
+
+        public List<DoctorName> FindByKindAttendent(int kind)
+        {
+            List<DoctorName> List = new List<DoctorName>();
+            _attendent.Read().ForEach(
+                p =>
+                {
+                    if (p.Kind == kind)
+                    {
+                        List.Add(new DoctorName
+                        {
+                            FirstName = p.FirstName,
+                            LastName = p.LastName,
+
+
+                        });
+                    }
+                });
+
+            return List;
+        }
     }
 
 }

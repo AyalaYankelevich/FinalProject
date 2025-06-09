@@ -9,7 +9,7 @@ namespace Server.Controllers
     [ApiController]
     public class AttendentController : ControllerBase
     {
-        private readonly IBLAttendent  _attendentService;
+        private readonly IBLAttendent _attendentService;
         public AttendentController(IBl bl)
         {
             _attendentService = bl.Attendents;
@@ -22,6 +22,7 @@ namespace Server.Controllers
             return attendent;
         }
         [HttpDelete("delete/{id}")]
+
         public IActionResult DeleteAttendent(int id)
         {
             try
@@ -58,6 +59,12 @@ namespace Server.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("getByKind")]
+        public IActionResult FindByKindAttendent([FromQuery] int kind)
+        {
+            return Ok(_attendentService.FindByKindAttendent(kind));
         }
     }
 }
