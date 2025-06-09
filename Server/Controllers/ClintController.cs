@@ -8,7 +8,7 @@ namespace Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class ClientController:ControllerBase
+    public class ClientController : ControllerBase
     {
         private readonly IBLClient _clientService;
         public ClientController(IBl bl)
@@ -20,8 +20,9 @@ namespace Server.Controllers
         public ActionResult<BLClient> AddClient([FromQuery] BLClient c)
         {
             _clientService.Create(c);
-        return c;
+            return c;
         }
+
 
         [HttpDelete("delete/{id}")]
         public IActionResult DeleteClient(int id)
@@ -44,7 +45,7 @@ namespace Server.Controllers
         }
 
         [HttpGet("get")]
-        public IActionResult GetClientsById([FromQuery] int id)
+        public IActionResult GetClientById([FromQuery] int id)
         {
             var client = _clientService.ReadByID(id);
             if (client != null)

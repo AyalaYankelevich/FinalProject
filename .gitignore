@@ -4,6 +4,3 @@ obj/
 *.user
 *.suo
 *.log
-# Ignore SQL Server database files
-*.mdf
-*.ldf

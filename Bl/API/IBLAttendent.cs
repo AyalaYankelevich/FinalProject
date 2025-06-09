@@ -9,8 +9,7 @@ namespace Bl.API
 {
     public interface IBLAttendent:IBLCrud<BLAttendent>
     {
-        //public BLAttendent ReadByID(int id);
-
+        public List<DoctorName> FindByKindAttendent(int kind);
 
     }
 }

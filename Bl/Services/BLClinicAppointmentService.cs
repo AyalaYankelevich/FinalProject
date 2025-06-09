@@ -84,7 +84,25 @@ namespace Bl.Services
                 });
             }
         }
-        public List<Date_Hour> FindByDoctor(string name)
+        //to change an appoitment??
+        //public void fUpdate(int attendentId, int clientId, Date_Hour date_Hour)
+        //{
+
+        //    var clinicAppointmentToUpdate = _clinicAppointment.Read().FirstOrDefault(p => p.AttendentId == attendentId && p.IsReserved == 0 && p.Date == date_Hour.Date && p.Hour == date_Hour.Hour);
+        //    if (clinicAppointmentToUpdate != null)
+        //    {
+        //        _clinicAppointment.Update(new ClinicAppointment
+        //        {
+                   
+        //            Date =date_Hour.Date,
+        //            Hour = date_Hour.Hour,
+        //            AttendentId = attendentId,
+        //            ClinetId = clientId,
+        //            IsReserved = 1,
+        //        });
+        //    }
+        //}
+            public List<Date_Hour> FindByDoctor(string name)
         {
             List<Date_Hour> LS = new List<Date_Hour>();
             _clinicAppointment.Read().ForEach(
@@ -139,6 +157,56 @@ namespace Bl.Services
             return LS;
         }
 
+         public List<Date_Hour> FindByClientId(int id)
+        {
+            List<Date_Hour> LS = new List<Date_Hour>();
+            _clinicAppointment.Read().ForEach(
+                p =>
+                {
+                    if (p.ClinetId== id)
+                    {
+                        LS.Add(new Date_Hour
+                        {
+                            Date = p.Date,
+                            Hour = p.Hour
+                        });
+                    }
+                });
 
+            return LS;
+        }
+
+
+        public List<DoctorName> FindByKindAttendent(int kind)
+        {
+            var now = DateTime.Now;
+
+            var appointments = _clinicAppointment.Read();
+            Console.WriteLine("All appointments: " + appointments.Count);
+            var kindMatches = appointments.Where(p => p.Attendent.Kind == kind).ToList();
+            Console.WriteLine("Kind matches: " + kindMatches.Count);
+            var reservedMatches = kindMatches.Where(p => p.IsReserved == 0).ToList();
+            Console.WriteLine("IsReserved == 0 matches: " + reservedMatches.Count);
+            var result = reservedMatches
+                .GroupBy(p => p.Attendent.Id)
+                .Select(g =>
+                {
+                    var nextAppointment = g.OrderBy(a => a.Date.ToDateTime(a.Hour)).FirstOrDefault();
+                    return nextAppointment == null ? null : new DoctorName
+                    {
+                        FirstName = nextAppointment.Attendent.FirstName,
+                        LastName = nextAppointment.Attendent.LastName,
+                        Date = nextAppointment.Date,
+                        Hour = nextAppointment.Hour
+                    };
+                })
+                .Where(d => d != null)
+                .ToList();
+
+            return result;
+        }
     }
+     
+
 }
+
