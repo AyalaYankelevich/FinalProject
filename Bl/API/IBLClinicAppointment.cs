@@ -11,7 +11,7 @@ namespace Bl.API
     public interface IBLClinicAppointment:IBLCrud<BLClinicAppointment>
     {
         //public void fUpdate(int attendentId, int clientId, Date_Hour date_Hour);
-        public List<Date_Hour> FindByClientId(int id);
+        public List<MyAppointment> FindByClientId(int id);
         public List<DoctorName> FindByKindAttendent(int kind);
     }
 }

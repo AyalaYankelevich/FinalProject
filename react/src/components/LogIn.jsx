@@ -91,7 +91,6 @@ const LogIn = ({ signUp }) => {
       </form>
       
       {loginError && <p style={{ marginTop: '1rem', color: 'red' }}>{loginError}</p>}
-      <Home attendentId={1}/>
     </div>
   );
 };

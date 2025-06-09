@@ -139,41 +139,43 @@ namespace Bl.Services
 
             return LS;
         }
-        public List<MyAppointment> MyAppointment(int id) {
-            List<MyAppointment> LS = new List<MyAppointment>();
-            _clinicAppointment.Read().ForEach(
-             p =>
-             {
-                 if (p.Clinet.Id == id)
-                 {
-                     LS.Add(new MyAppointment
-                     {
-                         Date = p.Date,
-                         Hour = p.Hour,
-              
-                     });
-                 }
-             });
-            return LS;
-        }
+        //public List<MyAppointment> MyAppointment(int id) {
+        //    List<MyAppointment> LS = new List<MyAppointment>();
+        //    _clinicAppointment.Read().ForEach(
+        //     p =>
+        //     {
+        //         if (p.Clinet.Id == id)
+        //         {
+        //             LS.Add(new MyAppointment
+        //             {
+        //                 Date = p.Date,
+        //                 Hour = p.Hour,
 
-         public List<Date_Hour> FindByClientId(int id)
+        //             });
+        //         }
+        //     });
+        //    return LS;
+        //}
+
+        public List<MyAppointment> FindByClientId(int id)
         {
-            List<Date_Hour> LS = new List<Date_Hour>();
+            List<MyAppointment> LS = new List<MyAppointment>();
             _clinicAppointment.Read().ForEach(
                 p =>
                 {
-                    if (p.ClinetId== id)
+                    if (p.ClinetId == id)
                     {
-                        LS.Add(new Date_Hour
+                        LS.Add(new MyAppointment
                         {
                             Date = p.Date,
-                            Hour = p.Hour
+                            Hour = p.Hour,
+                            FirstName = p.Attendent?.FirstName, // Use null-conditional operator
+                            LastName = p.Attendent?.LastName
                         });
                     }
                 });
 
-            return LS;
+            return LS; // This line is now correct
         }
 
 

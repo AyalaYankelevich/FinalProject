@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bl.Models
 {
-    public class MyAppointment:Date_Hour
+    public class MyAppointment: DoctorName
     {
-        public string FirstName { get; set; }
+        public DateOnly Date { get; set; }
 
-        public string LastName { get; set; }
-
-        public int Kind { get; set; }
+        public TimeOnly Hour { get; set; }
     }
 }

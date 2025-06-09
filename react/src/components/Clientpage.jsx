@@ -1,37 +1,7 @@
 import React, { useState } from 'react';
 import { fetchData } from '../api';
 import ChooseAttendentKind from './ChooseAttendentKind';
-
-const styles = {
-  card: {
-    maxWidth: "400px",
-    margin: "40px auto",
-    padding: "24px",
-    borderRadius: "10px",
-    boxShadow: "0 2px 12px rgba(0,0,0,0.09)",
-    background: "#fff",
-    fontFamily: "sans-serif"
-  },
-  button: {
-    background: "#0070f3",
-    color: "#fff",
-    border: "none",
-    padding: "10px 20px",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginRight: "12px"
-  },
-  overlay: {
-    position: "fixed",
-    top: 0, left: 0, right: 0, bottom: 0,
-    background: "rgba(255,255,255,0.98)",
-    zIndex: 1000,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-};
+import { Card, CardContent, Button, Typography, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem } from '@mui/material';
 
 const ClientPage = ({ client }) => {
   const [appointments, setAppointments] = useState([]);
@@ -42,7 +12,6 @@ const ClientPage = ({ client }) => {
   const [loadingAttendents, setLoadingAttendents] = useState(false);
   const [attendentKind, setAttendentKind] = useState(null);
 
-  // Fetch appointments only when button is clicked
   const handleFetchAppointments = async () => {
     setShowAppointments(true);
     setShowAttendentKind(false);
@@ -55,7 +24,6 @@ const ClientPage = ({ client }) => {
     }
   };
 
-  // Show ChooseAttendentKind component
   const handleShowAttendentKind = () => {
     setShowAppointments(false);
     setShowAttendentKind(true);
@@ -63,22 +31,23 @@ const ClientPage = ({ client }) => {
     setAttendentKind(null);
   };
 
-  // Hide ChooseAttendentKind component
   const handleCloseAttendentKind = () => {
     setShowAttendentKind(false);
     setAttendents([]);
     setAttendentKind(null);
   };
 
-  // Callback for when a kind is chosen
+  const handleCloseAppointments = () => {
+    setShowAppointments(false);
+    setAppointments([]);
+  };
+
   const handleKindChosen = async (kindNumber) => {
     setLoadingAttendents(true);
     setAttendents([]);
     setAttendentKind(kindNumber);
     try {
-      // Assign the result of fetchData to data
       const data = await fetchData('Attendent', 'getByKind', { kind: kindNumber }, 'get');
-      console.log('DATA FROM API:', data); // <-- Now it's defined!
       setAttendents(Array.isArray(data) ? data : []);
       setError("");
     } catch (err) {
@@ -91,62 +60,78 @@ const ClientPage = ({ client }) => {
   if (!client) return <div>No client data</div>;
 
   return (
-    
-    <div style={styles.card}>
-      <p>cheak!</p>
-      <h2>Welcome, {client.firstName} {client.lastName}!</h2>
-      <button style={styles.button} onClick={handleFetchAppointments}>
-        Show My Appointments
-      </button>
-      <button
-        style={{ ...styles.button, background: "#34a853" }}
-        onClick={handleShowAttendentKind}
-      >
-        Choose Attendent Kind
-      </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <Card style={{ maxWidth: "400px", margin: "40px auto", padding: "24px", borderRadius: "10px" }}>
+      <CardContent>
+        <Typography variant="h5">Welcome, {client.firstName} {client.lastName}!</Typography>
+        <Button variant="contained" color="primary" onClick={handleFetchAppointments} style={{ margin: "12px 0" }}>
+          Show My Appointments
+        </Button>
+        {!showAppointments && (
+          <Button variant="contained" color="success" onClick={handleShowAttendentKind}>
+            Choose Attendent Kind
+          </Button>
+        )}
+        {error && <Typography color="error">{error}</Typography>}
 
-      {showAppointments && (
-        <ul>
-          {appointments.map(appt => {
-            if (!appt.date || !appt.hour) return null;
-            let hourString = appt.hour;
-            if (/^\d{2}:\d{2}$/.test(hourString)) hourString += ':00';
-            const dateTimeString = `${appt.date}T${hourString}`;
-            const appointmentDate = new Date(dateTimeString);
-            if (isNaN(appointmentDate.getTime())) return null;
-            return (
-              <li key={appt.id}>
-                {appointmentDate.toLocaleDateString()} {appointmentDate.toLocaleTimeString()}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+        {showAppointments && (
+          <>
+            <List>
+              {appointments.map(appt => {
+                // Log the entire appointment object to the console
+                console.log(appt);
 
-      {showAttendentKind && (
-        <div style={styles.overlay}>
-          <ChooseAttendentKind onKindChosen={handleKindChosen} />
-          {loadingAttendents && <div style={{ marginTop: 16 }}>Loading attendents...</div>}
-          {attendents.length > 0 && (
-            <div style={{ marginTop: 16 }}>
-              <strong>Attendents:</strong>
-              <ul>
-                {attendents.map((att, idx) => (
-                  <li key={att.firstName + att.lastName + idx}>{att.firstName} {att.lastName}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <button
-            style={{ ...styles.button, marginTop: 24 }}
-            onClick={handleCloseAttendentKind}
-          >
-            Back
-          </button>
-        </div>
-      )}
-    </div>
+                if (!appt.date || !appt.hour) return null;
+
+                let hourString = appt.hour;
+                if (/^\d{2}:\d{2}$/.test(hourString)) hourString += ':00';
+                const dateTimeString = `${appt.date}T${hourString}`;
+                const appointmentDate = new Date(dateTimeString);
+                if (isNaN(appointmentDate.getTime())) return null;
+
+                const formattedDate = appointmentDate.toLocaleDateString('en-GB'); // Formats as DD/MM/YYYY
+                const formattedTime = appointmentDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); // Formats as HH:MM:SS
+                const doctorName = appt.firstName && appt.lastName ? `${appt.FirstName} ${appt.LastName}` : 'N/A';
+
+                // Print the appointment details to the console
+                console.log(`Appointment: ${formattedDate} ${formattedTime} - Doctor: ${doctorName}`);
+
+                return (
+                  <ListItem key={appt.id}>
+                    {formattedDate} {formattedTime} - Doctor: {doctorName}
+                  </ListItem>
+                );
+              })}
+            </List>
+            <Button variant="outlined" color="secondary" onClick={handleCloseAppointments}>
+              Close Appointment Details
+            </Button>
+          </>
+        )}
+
+        {showAttendentKind && (
+          <Dialog open={showAttendentKind} onClose={handleCloseAttendentKind}>
+            <DialogTitle>Choose Attendent Kind</DialogTitle>
+            <DialogContent>
+              <ChooseAttendentKind onKindChosen={handleKindChosen} />
+              {loadingAttendents && <CircularProgress style={{ marginTop: 16 }} />}
+              {attendents.length > 0 && (
+                <div style={{ marginTop: 16 }}>
+                  <strong>Attendents:</strong>
+                  <List>
+                    {attendents.map((att, idx) => (
+                      <ListItem key={att.firstName + att.lastName + idx}>{att.firstName} {att.lastName}</ListItem>
+                    ))}
+                  </List>
+                </div>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseAttendentKind} color="primary">Back</Button>
+            </DialogActions>
+          </Dialog>
+        )}
+      </CardContent>
+    </Card>
   );
 };
 
