@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fetchData } from '../api';
 import ChooseAttendentKind from './ChooseAttendentKind';
-
+import PageCalander  from './pageCalander'
 const styles = {
   card: {
     maxWidth: "400px",
@@ -41,6 +41,7 @@ const ClientPage = ({ client }) => {
   const [attendents, setAttendents] = useState([]);
   const [loadingAttendents, setLoadingAttendents] = useState(false);
   const [attendentKind, setAttendentKind] = useState(null);
+  const [showHome, setShowHome] = useState(false);
 
   // Fetch appointments only when button is clicked
   const handleFetchAppointments = async () => {
@@ -54,7 +55,9 @@ const ClientPage = ({ client }) => {
       setError(err.message || "Failed to fetch clinic appointments");
     }
   };
-
+    const handleFetchAppointmentsToDoctore=()=>{
+      setShowHome(true);
+}
   // Show ChooseAttendentKind component
   const handleShowAttendentKind = () => {
     setShowAppointments(false);
@@ -78,8 +81,8 @@ const ClientPage = ({ client }) => {
     try {
       // Assign the result of fetchData to data
       const data = await fetchData('Attendent', 'getByKind', { kind: kindNumber }, 'get');
-      console.log('DATA FROM API:', data); // <-- Now it's defined!
-      setAttendents(Array.isArray(data) ? data : []);
+      // console.log('DATA FROM API:', data); // <-- Now it's defined!
+      setAttendents( Array.isArray(data) ? data : []);
       setError("");
     } catch (err) {
       setError(err.message || "Failed to fetch attendents");
@@ -129,11 +132,18 @@ const ClientPage = ({ client }) => {
           <ChooseAttendentKind onKindChosen={handleKindChosen} />
           {loadingAttendents && <div style={{ marginTop: 16 }}>Loading attendents...</div>}
           {attendents.length > 0 && (
-            <div style={{ marginTop: 16 }}>
+            <div style={{  display: 'flex', flexDirection: 'row', overflowX: 'auto'}}>
               <strong>Attendents:</strong>
               <ul>
                 {attendents.map((att, idx) => (
-                  <li key={att.firstName + att.lastName + idx}>{att.firstName} {att.lastName}</li>
+                  <div style={{ ...styles.card, flex: '0 1 calc(33% - 10px)', margin: '5px' }} key={att.firstName + att.lastName + idx}>
+                  <li >{att.firstName} {att.lastName}</li>
+                  <button >Close appointment</button>
+                  <div>
+            <button onClick={handleFetchAppointmentsToDoctore}>appointment</button>
+            {showHome && <PageCalander attendentId={1} />}
+        </div>
+                  </div>
                 ))}
               </ul>
             </div>
