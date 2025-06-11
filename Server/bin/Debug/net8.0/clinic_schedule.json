@@ -1,0 +1,154 @@
+{
+  "clinic": {
+    "openDays": [ 1, 2, 3, 4, 5 ],
+    "startTime": "08:00",
+    "endTime": "16:00",
+    "intervalMinutes": 20,
+    "startDate": "2025-01-01",
+    "endDate": "2025-12-31"
+  },
+  "orthodontists": [
+    {
+      "id": 3,
+      "name": "Emily Brown",
+      "shifts": [
+        {
+          "dayOfWeek": 1,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 3,
+          "start": "08:00",
+          "end": "12:00"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Laura Garcia",
+      "shifts": [
+        {
+          "dayOfWeek": 4,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "12:00",
+          "end": "16:00"
+        }
+      ]
+    }
+  ],
+  "hygienists": [
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "shifts": [
+        {
+          "dayOfWeek": 2,
+          "start": "08:00",
+          "end": "16:00"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "David Jones",
+      "shifts": [
+        {
+          "dayOfWeek": 4,
+          "start": "08:00",
+          "end": "16:00"
+        }
+      ]
+    }
+  ],
+  "dentists": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "shifts": [
+        {
+          "dayOfWeek": 1,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 3,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 4,
+          "start": "08:00",
+          "end": "16:00"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Sarah Williams",
+      "shifts": [
+        {
+          "dayOfWeek": 2,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 4,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "08:00",
+          "end": "16:00"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "James Martinez",
+      "shifts": [
+        {
+          "dayOfWeek": 1,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 2,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "08:00",
+          "end": "16:00"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Olivia Thomas",
+      "shifts": [
+        {
+          "dayOfWeek": 3,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 4,
+          "start": "08:00",
+          "end": "16:00"
+        },
+        {
+          "dayOfWeek": 5,
+          "start": "08:00",
+          "end": "16:00"
+        }
+      ]
+    }
+  ]
+}

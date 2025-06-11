@@ -31,7 +31,7 @@ namespace Bl.Services
                         Hour = item.Hour,
                       ClinetId = item.ClinetId,
                     AttendentId = item.AttendentId,
-                    IsReserved = item.IsReserved
+                    IsReserved = 1
                     });
                    
             }
@@ -80,29 +80,12 @@ namespace Bl.Services
                     Hour = item.Hour,
                     AttendentId = item.AttendentId,
                     ClinetId = item.ClinetId,
-                    IsReserved = item.IsReserved,
+                    IsReserved =1,
                 });
             }
         }
-        //to change an appoitment??
-        //public void fUpdate(int attendentId, int clientId, Date_Hour date_Hour)
-        //{
-
-        //    var clinicAppointmentToUpdate = _clinicAppointment.Read().FirstOrDefault(p => p.AttendentId == attendentId && p.IsReserved == 0 && p.Date == date_Hour.Date && p.Hour == date_Hour.Hour);
-        //    if (clinicAppointmentToUpdate != null)
-        //    {
-        //        _clinicAppointment.Update(new ClinicAppointment
-        //        {
-                   
-        //            Date =date_Hour.Date,
-        //            Hour = date_Hour.Hour,
-        //            AttendentId = attendentId,
-        //            ClinetId = clientId,
-        //            IsReserved = 1,
-        //        });
-        //    }
-        //}
-            public List<Date_Hour> FindByDoctor(string name)
+ 
+        public List<Date_Hour> FindByDoctor(string name)
         {
             List<Date_Hour> LS = new List<Date_Hour>();
             _clinicAppointment.Read().ForEach(

@@ -1,33 +1,4 @@
 
-// import * as React from 'react';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
-// import dayjs from 'dayjs';
-
-// export default function StaticDateTimePickerLandscape() {
-//   const getTimeRange = (date) => {
-//     // Calculate the time range (20 minutes duration)
-//     const startTime = dayjs(date).format('HH:mm'); // Format as 24-hour time
-//     const endTime = dayjs(date).add(20, 'minute').format('HH:mm'); // Add 20 minutes
-//     return `${startTime} - ${endTime}`;
-//   };
-
-//   return (
-//     <LocalizationProvider dateAdapter={AdapterDayjs}>
-//       <StaticDateTimePicker
-//         orientation="landscape"
-//         ampm={false} // Disable AM/PM
-//         renderInput={(params) => <div {...params} />}
-//         onChange={(date) => {
-//           // Example: Log the time range to the console
-//           console.log(`Selected Time Range: ${getTimeRange(date)}`);
-//         }}
-//         toolbarTitle="Choose a Date and Time"
-//       />
-//     </LocalizationProvider>
-//   );
-// }
 import * as React from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -45,7 +16,7 @@ import {
 import { fetchData } from '../api';
 
 
-export default function AppointmentBooker({ attendentId}) {
+export default function AppointmentBooker({ attendentId, clientId}) {
   const [selectedDate, setSelectedDate] = React.useState(dayjs());
   const [availableTimes, setAvailableTimes] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -82,25 +53,53 @@ export default function AppointmentBooker({ attendentId}) {
 
   const handleTimeChange = (_, newTime) => setSelectedTime(newTime);
 
-  const handleCommit = async () => {
-    if (!selectedTime) return;
-    setBookingStatus('loading');
-    setErrorMsg('');
-    try {
+//   const handleCommit = async () => {
+//     if (!selectedTime) return;
+//     setBookingStatus('loading');
+//     setErrorMsg('');
+//     try {
+//       const params = {
+//         attendentId,
+//         clientId, // Make sure clientId is defined in your component
+//         date: selectedDate.format('YYYY-MM-DD'),
+//         hour: selectedTime,
+//       };
+//       await fetchData('ClinicAppointment', 'AddClinicAppointment', params, 'post'); // Change to the correct action
+//       setBookingStatus('success');
+//       fetchAvailableAppointments(selectedDate);
+//     } catch (error) {
+//       setBookingStatus('error');
+//       setErrorMsg('Failed to book appointment. Please try again.');
+//     }
+// };
+
+const handleCommit = async () => {
+  if (!selectedTime) {
+      console.log('No time selected.');
+      return;
+  }
+  console.log('Starting booking process...');
+  setBookingStatus('loading');
+  setErrorMsg('');
+  try {
       const params = {
-        attendentId,
-        clientId,
-        date: selectedDate.format('YYYY-MM-DD'),
-        hour: selectedTime,
+          attendentId,
+          clientId, // Make sure clientId is defined in your component
+          date: selectedDate.format('YYYY-MM-DD'),
+          hour: selectedTime,
       };
-      await fetchData('ClinicAppointment', 'reserve', params, 'post');
+      console.log('Parameters:', params);
+      await fetchData('ClinicAppointment', 'AddClinicAppointment', params, 'post'); // Change to the correct action
+      console.log('Booking successful!');
       setBookingStatus('success');
       fetchAvailableAppointments(selectedDate);
-    } catch (error) {
+  } catch (error) {
+      console.error('Error during booking:', error);
       setBookingStatus('error');
       setErrorMsg('Failed to book appointment. Please try again.');
-    }
-  };
+  }
+};
+
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
