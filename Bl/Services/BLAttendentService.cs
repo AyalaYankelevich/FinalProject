@@ -128,6 +128,7 @@ namespace Bl.Services
                     {
                         List.Add(new DoctorName
                         {
+                            Id=p.Id,
                             FirstName = p.FirstName,
                             LastName = p.LastName,
 

@@ -8,6 +8,7 @@ namespace Bl.Models
 {
     public class DoctorName:Date_Hour
     {
+        public  int Id { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

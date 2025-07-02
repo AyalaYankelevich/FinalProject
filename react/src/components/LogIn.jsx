@@ -5,7 +5,6 @@ import { clearErrors } from '../redux/clientSlice';
 import SignUp from './SignUp';
 import { AppProvider } from '@toolpad/core';
 import ClientPage from './Clientpage';
-import Home from './Home';
 const LogIn = ({ signUp }) => {
   const [id, setId] = useState('');
   const [showSignUp, setShowSignUp] = useState(false);
@@ -91,7 +90,7 @@ const LogIn = ({ signUp }) => {
       </form>
       
       {loginError && <p style={{ marginTop: '1rem', color: 'red' }}>{loginError}</p>}
-      <Home attendentId={1}/>
+   
     </div>
   );
 };

@@ -17,12 +17,22 @@ namespace Server.Controllers
             _ClinicAppointmentsService = bl.ClinicAppointments;
         }
 
-        [HttpPut]
+        [HttpPost]
         public ActionResult<BLClinicAppointment> AddClinicAppointment([FromBody] BLClinicAppointment ClinicAppointment)
         {
-            _ClinicAppointmentsService.Create(ClinicAppointment);
-            return ClinicAppointment;
+            Console.WriteLine(ClinicAppointment.Id);
+            try
+            {
+                _ClinicAppointmentsService.Create(ClinicAppointment);
+                return Ok("Client updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
+
 
         [HttpDelete("delete/{id}")]
         public IActionResult DeleteClinicAppointment(int id)
@@ -70,19 +80,7 @@ namespace Server.Controllers
 
         }
 
-        [HttpPost("update")]
-        public IActionResult UpdateClinicAppointment([FromBody] BLClinicAppointment ClinicAppointment)
-        {
-            try
-            {
-                _ClinicAppointmentsService.Update(ClinicAppointment);
-                return Ok("Client updated successfully");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+
         //[HttpPost("updatef")]
         //public IActionResult UpdateClinicAppointmentf([FromQuery] int attendentId, [FromQuery] int clientId, [FromQuery] Date_Hour date_Hour)
         //{
