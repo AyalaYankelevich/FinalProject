@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace Bl.API
 {
-    public interface IBLAttendent:IBLCrud<BLAttendent>
+    public interface IBLAttendent : IBLCrud<BLAttendent>
     {
         public List<DoctorName> FindByKindAttendent(int kind);
+        public List<SeeAppoitment> GetAppointmentsForDate(int attendentId, DateTime
+date);
+        //public List<BLClient> GetClients(int attendentId);
 
     }
 }
+

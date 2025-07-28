@@ -1,0 +1,77 @@
+
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.98);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.attendent-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: calc(100% - 40px); /* adjusted for ClientPage padding */
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    max-height: 400px;
+    margin-top: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.attendent-card {
+    max-width: 100%;
+    border-radius: 10px;
+    background: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    flex: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.attendent-button {
+    background: #0070f3; /* סגנון בסיסי לכפתור */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 12px;
+    margin-top: 10px;
+}
+
+.attendent-button-book {
+    background: #0078d4; /* כחול כהה יותר לכפתור קביעת תור */
+}
+
+.attendent-button-back {
+    background: #888; /* אפור לכפתור חזור */
+    margin-top: 24px;
+}
+
+.loading-attendents {
+    margin-top: 16px;
+}
+
+.attendent-error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.no-attendents-message {
+    margin-top: 15px;
+    color: #666;
+}

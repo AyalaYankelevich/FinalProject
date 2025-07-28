@@ -1,0 +1,61 @@
+.appointments-loading {
+    margin-top: 15px;
+    color: #666;
+}
+
+.appointments-error {
+    color: red;
+    margin-top: 10px;
+}
+
+.appointments-container {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.appointments-list {
+    list-style: none;
+    padding: 0;
+}
+
+.appointment-item {
+    padding: 8px 0;
+    border-bottom: 1px dotted #f0f0f0;
+}
+
+.no-appointments-message {
+    margin-top: 15px;
+    color: #666;
+}/* src/components/ClientPage/ClientAppointments.css */
+
+.appointments-loading {
+    margin-top: 15px;
+    color: #666;
+}
+
+.appointments-error {
+    color: red;
+    margin-top: 10px;
+}
+
+.appointments-container {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.appointments-list {
+    list-style: none;
+    padding: 0;
+}
+
+.appointment-item {
+    padding: 8px 0;
+    border-bottom: 1px dotted #f0f0f0;
+}
+
+.no-appointments-message {
+    margin-top: 15px;
+    color: #666;
+}

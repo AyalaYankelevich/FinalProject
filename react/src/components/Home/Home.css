@@ -1,0 +1,52 @@
+.overlay {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    direction: rtl;
+    text-align: right;
+    position: absolute;
+  top:100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.overlay2{
+    margin-top: 500%;
+    background-image:url('../assets/white-teeth2-1024x506.png');
+
+    padding: 20px;
+  
+ height: 200px;
+    width: 200%;
+      background-size: cover; /* מכסה את כל האזור */
+  background-position: center; /* ממקם את התמונה במרכז */
+}
+
+h1 {
+    /* Style for the main heading */
+    color: #0056b3; /* A nice blue color */
+    font-size: 1.8em; /* Larger font size */
+    margin-bottom: 20px; /* Space below the heading */
+  border-bottom: 2px solid #eee;    /*Underline for emphasis */
+    padding-bottom: 10px; /* Space between text and underline */
+}
+
+p {
+    /* Basic paragraph styling */
+    font-size: 1.1em; /* Slightly larger text for readability */
+    line-height: 1.6; /* Good line spacing */
+    color: #333; /* Dark gray for good contrast */
+    margin-bottom: 15px; /* Space between paragraphs */
+}
+
+/* You can also style specific elements within your content if they were wrapped in tags,
+   for example, if you had a link like "לחיפוש מרפאות כללית סמייל לחצו כאן." */
+a {
+    color: #007bff; /* Standard link blue */
+    text-decoration: none; /* No underline by default */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}

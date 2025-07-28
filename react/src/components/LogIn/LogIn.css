@@ -1,0 +1,56 @@
+.overlay {
+  display: flex; /* שימוש ב-flexbox למרכוז התוכן */
+  justify-content: center; /* מרכוז אופקי */
+  align-items: center; /* מרכוז אנכי */
+  min-height: 100vh; /* גובה מינימלי של 100% מגובה אזור התצוגה */
+  width: 100%; /* רוחב מלא */
+   background-color: rgba(255, 255, 255, 0.4);
+}
+
+.login-container {
+ /*   background-color: rgba(
+    255,
+    255,
+    255,
+    0.95
+  ); /* רקע לבן כמעט אטום לקונטיינר */
+  padding: 40px; /* ריפוד פנימי */
+  border-radius: 10px; /* פינות מעוגלות */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* צל עדין */
+  text-align: center; /* יישור טקסט למרכז */
+  max-width: 400px; /* רוחב מקסימלי לקונטיינר */
+  width: 90%; /* רוחב יחסי */
+  color: #333; /* צבע טקסט כהה לניגודיות */
+  z-index: 2; /* ודא שהקונטיינר מעל ה-overlay */
+}
+
+.login-input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  /* ... סגנונות נוספים */
+}
+
+.login-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.error-message {
+  margin-top: 1rem;
+  color: red;
+}

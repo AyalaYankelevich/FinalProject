@@ -12,6 +12,6 @@ namespace Bl.Models
 
         public string LastName { get; set; }
 
-        public int Kind { get; set; }
+        //public int Kind { get; set; }
     }
 }

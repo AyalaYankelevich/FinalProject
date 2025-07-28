@@ -15,9 +15,16 @@ namespace Bl.Services
     {
 
         private readonly IAttendent _attendent;
+        //////////////////// Ayala 
+        private readonly IClinicAppointment _appointment;
+        private readonly IClient _client;
+
         public BLAttendentService(IDal dal)
         {
             _attendent = dal.Attendent;
+            //////////////////// Ayala 
+            _appointment = dal.ClinicAppointment;
+            _client = dal.Client;
         }
 
         public void Create(BLAttendent item)
@@ -61,7 +68,7 @@ namespace Bl.Services
                     FirstName = item.FirstName,
                     LastName = item.LastName,
                     NumberPhone = item.NumberPhone,
-                    Kind= item.Kind
+                    Kind = item.Kind
                 });
             }
             return result;
@@ -81,7 +88,7 @@ namespace Bl.Services
                     NumberPhone = item.NumberPhone,
                     Kind = item.Kind
                 }
-               ); 
+               );
             }
         }
 
@@ -107,13 +114,14 @@ namespace Bl.Services
 
             var attendent = _attendent.ReadByID(id);
             BLAttendent attendent1;
-            attendent1 = new BLAttendent{
+            attendent1 = new BLAttendent
+            {
                 Id = attendent.Id,
                 FirstName = attendent.FirstName,
                 LastName = attendent.LastName,
                 NumberPhone = attendent.NumberPhone,
                 Kind = attendent.Kind,
-             };
+            };
             return attendent1;
 
         }
@@ -128,10 +136,9 @@ namespace Bl.Services
                     {
                         List.Add(new DoctorName
                         {
-                            Id=p.Id,
+                            Id = p.Id,
                             FirstName = p.FirstName,
                             LastName = p.LastName,
-
 
                         });
                     }
@@ -139,6 +146,31 @@ namespace Bl.Services
 
             return List;
         }
+        //////////////////// Ayala 
+        public List<SeeAppoitment> GetAppointmentsForDate(int attendentId, DateTime
+    date)
+        {
+            var appointments = _attendent.GetAppointmentsForAttendentAndDate(attendentId, date);
+            return appointments.Select(a => new SeeAppoitment
+            {
+                Date = a.Date,
+                ClientId = a.ClinetId
+            }).ToList();
+        }
+
+        //public List<BLClient> GetClients(int attendentId)
+        //{
+        //    var clients = _client.GetClientsForAttendent(attendentId);
+        //    return clients.Select(c => new BLClient
+        //    {
+        //        Id = c.Id,
+        //        FirstName = c.FirstName,
+        //        LastName = c.LastName,
+        //        Phone = c.Phone,
+        //        // םיפסונ תודש ... 
+        //    }).ToList();
+        //}
     }
 
 }
+

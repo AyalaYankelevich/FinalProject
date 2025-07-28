@@ -7,12 +7,13 @@ using Dal;
 using Bl;
 using Project;
 
-
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
 
+builder.Services.AddControllers(options =>
+{
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
 
-// Add CORS configuration
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policyBuilder =>
@@ -26,10 +27,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 builder.Services.AddSingleton<IBl, BLManager>();
 var app = builder.Build();
-
 
 app.UseCors("AllowReactApp");
 
