@@ -5,8 +5,9 @@ import {
   DialogContent, DialogContentText, DialogTitle
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useState } from 'react';
-import { fetchData } from '../api'; // Update this import!
+import { useState, useEffect } from 'react'; // הוספתי useEffect
+import { useDispatch, useSelector } from 'react-redux'; // ייבוא חדש
+import { createClient } from '../redux/thunk'; 
 
 function isOnlyNumbers(value) {
   return /^[0-9]+$/.test(value);
@@ -29,12 +30,15 @@ function isValidDateOfBirth(value) {
 }
 
 function isValidEmail(value) {
-  // Simple email regex, for demonstration
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 export default function ClientsSignUpPage() {
   const theme = useTheme();
+  const dispatch = useDispatch(); // אתחול useDispatch
+
+  // קוראים את המצב מה-Redux store
+  const { createLoading, createError, client, isAuthenticated } = useSelector((state) => state.client);
 
   const [form, setForm] = useState({
     id: '',
@@ -47,20 +51,35 @@ export default function ClientsSignUpPage() {
   });
 
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
+
+  // אפקט לטיפול בהרשמה מוצלחת או שגיאה מה-Redux store
+  useEffect(() => {
+    if (isAuthenticated && client && !createLoading && !createError) {
+      // אם המשתמש אומת ונוצר בהצלחה, ניתן לנקות את הטופס או להפנות לדף אחר.
+      // לדוגמה, כדי לנקות את הטופס:
+      setForm({
+        id: '', firstName: '', lastName: '', dateOfBirth: '',
+        numberPhone: '', address: '', email: '',
+      });
+      setErrors({});
+      setOpenDialog(false);
+      // alert('Sign up successful!'); // או כל לוגיקה אחרת להצגת הצלחה
+    }
+  }, [isAuthenticated, client, createLoading, createError]);
+
 
   const validate = () => {
     const newErrors = {};
     if (!isOnlyNumbers(form.id)) newErrors.id = 'ID must contain only numbers';
+    if (form.id.length < 5 || form.id.length > 10) newErrors.id = 'ID must be between 5 and 10 digits'; // ולידציה נוספת לאורך תעודת זהות
     if (!isOnlyLetters(form.firstName)) newErrors.firstName = 'First name must contain only letters';
     if (!isOnlyLetters(form.lastName)) newErrors.lastName = 'Last name must contain only letters';
     if (!isValidPhone(form.numberPhone)) newErrors.numberPhone = 'Phone number must be 9-10 digits';
-    if (!isValidDateOfBirth(form.dateOfBirth)) newErrors.dateOfBirth = 'Date must be between 1900 and today';
     if (!form.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required';
-    if (!isValidEmail(form.email)) newErrors.email = 'Invalid email address';
+    if (form.dateOfBirth && !isValidDateOfBirth(form.dateOfBirth)) newErrors.dateOfBirth = 'Date must be between 1900 and today';
     if (!form.email) newErrors.email = 'Email is required';
+    if (form.email && !isValidEmail(form.email)) newErrors.email = 'Invalid email address';
     if (!form.address) newErrors.address = 'Address is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -69,34 +88,26 @@ export default function ClientsSignUpPage() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: undefined })); // clear on change
+    setErrors((prev) => ({ ...prev, [name]: undefined })); // נקה שגיאה בשדה ספציפי בעת שינוי
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setSubmitted(false);
-
     if (validate()) {
-      setOpenDialog(true); // only show confirmation if valid
+      setOpenDialog(true);
     }
   };
 
-  const handleDialogOk = async () => {
+  const handleDialogOk = () => {
     setOpenDialog(false);
-    try {
-      await fetchData('Client', '', form, 'put');
-      setSubmitted(true);
-    } catch (err) {
-      setError('Failed to sign up: ' + err.message);
-    }
+    // שולחים את ה-thunk של יצירת לקוח עם נתוני הטופס
+    dispatch(createClient(form));
   };
 
   const handleDialogCancel = () => {
     setOpenDialog(false);
   };
 
-  // For date input max
   const todayStr = new Date().toISOString().split('T')[0];
 
   return (
@@ -112,7 +123,11 @@ export default function ClientsSignUpPage() {
           bgcolor: 'background.paper',
         }}
       >
-        {!submitted ? (
+        {isAuthenticated && client && !createLoading && !createError ? (
+          <Typography variant="h6" align="center" color="success.main">
+            Thank you for signing up!
+          </Typography>
+        ) : (
           <>
             <Typography variant="h5" align="center" gutterBottom>
               Sign Up
@@ -181,7 +196,7 @@ export default function ClientsSignUpPage() {
                   name="address"
                   value={form.address}
                   onChange={handleChange}
-                  inputProps={{ maxLength: 10 }}
+                  inputProps={{ maxLength: 100 }} // שיניתי לאורך סביר יותר לכתובת
                   required
                   fullWidth
                   error={!!errors.address}
@@ -190,7 +205,6 @@ export default function ClientsSignUpPage() {
                 <TextField
                   label="Email"
                   name="email"
-                //   type="email"
                   value={form.email}
                   onChange={handleChange}
                   inputProps={{ maxLength: 100 }}
@@ -199,16 +213,18 @@ export default function ClientsSignUpPage() {
                   error={!!errors.email}
                   helperText={errors.email}
                 />
-                <Button type="submit" variant="contained" color="primary" fullWidth>
-                  Sign Up
+                <Button type="submit" variant="contained" color="primary" fullWidth disabled={createLoading}>
+                  {createLoading ? 'Signing Up...' : 'Sign Up'}
                 </Button>
               </Stack>
             </form>
-            {error && (
-              <Typography color="error" align="center" mt={2}>
-                {error}
-              </Typography>
-            )}
+            {/* הצגת שגיאות מה-Redux store */}
+           {createError && (
+  <Typography color="error" align="center" mt={2}>
+    {createError.message || 'An unknown error occurred.'} {/* <-- תיקון כאן! */}
+  </Typography>
+)}
+
             {/* Confirmation Popup */}
             <Dialog open={openDialog} onClose={handleDialogCancel}>
               <DialogTitle>Confirm Your Details</DialogTitle>
@@ -228,14 +244,10 @@ export default function ClientsSignUpPage() {
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleDialogCancel} color="secondary">Cancel</Button>
-                <Button onClick={handleDialogOk} color="primary" variant="contained">OK</Button>
+                <Button onClick={handleDialogOk} color="primary" variant="contained" disabled={createLoading}>OK</Button>
               </DialogActions>
             </Dialog>
           </>
-        ) : (
-          <Typography variant="h6" align="center" color="success.main">
-            Thank you for signing up!
-          </Typography>
         )}
       </Box>
     </AppProvider>

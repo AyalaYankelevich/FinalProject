@@ -1,4 +1,5 @@
 
+
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5095/api';
@@ -12,7 +13,11 @@ export const fetchData = async (controller, action = '', params = {}, method = '
       return response.data;
     } else {
       // POST and PUT: params go in body
-      const response = await axios({ url, method, data: params });
+      const response = await axios({ url, method, data: params ,
+  headers: {
+    'Content-Type': 'application/json', // Adjust if needed
+  },
+});
       return response.data;
     }
   } catch (error) {

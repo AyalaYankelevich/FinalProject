@@ -1,4 +1,73 @@
-﻿using Bl.API;
+﻿//using Bl.API;
+//using Bl.Models;
+//using Dal.Services;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+
+//namespace Server.Controllers
+//{
+//    [Route("api/[controller]")]
+//    [ApiController]
+//    public class AttendentController : ControllerBase
+//    {
+//        private readonly IBLAttendent _attendentService;
+//        public AttendentController(IBl bl)
+//        {
+//            _attendentService = bl.Attendents;
+//        }
+
+//        [HttpPut("to")]
+//        public ActionResult<BLAttendent> AddAttendent([FromBody] BLAttendent attendent)
+//        {
+//            _attendentService.Create(attendent);
+//            return attendent;
+//        }
+//        [HttpDelete("delete/{id}")]
+
+//        public IActionResult DeleteAttendent(int id)
+//        {
+//            try
+//            {
+//                _attendentService.Delete(id);
+//                return Ok("Client deleted successfully");
+//            }
+//            catch (Exception ex)
+//            {
+//                return BadRequest(ex.Message);
+//            }
+//        }
+
+//        [HttpGet("get")]
+//        public IActionResult GetAttendents()
+//        {
+//            return Ok(_attendentService.Read());
+//        }
+
+
+
+
+//        [HttpPost("update")]
+//        public IActionResult UpdateAttendent([FromBody] BLAttendent attendent)
+//        {
+//            try
+//            {
+//                _attendentService.Update(attendent);
+//                return Ok("Attendent updated successfully");
+//            }
+//            catch (Exception ex)
+//            {
+//                return BadRequest(ex.Message);
+//            }
+//        }
+
+//        [HttpGet("getByKind")]
+//        public IActionResult FindByKindAttendent([FromQuery] int kind)
+//        {
+//            return Ok(_attendentService.FindByKindAttendent(kind));
+//        }
+//    }
+//}
+using Bl.API;
 using Bl.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +85,8 @@ namespace Server.Controllers
         }
 
         [HttpPut("to")]
-        public ActionResult<BLAttendent> AddAttendent([FromBody] BLAttendent attendent)
+        public ActionResult<BLAttendent> AddAttendent([FromBody] BLAttendent
+attendent)
         {
             _attendentService.Create(attendent);
             return attendent;
@@ -66,5 +136,37 @@ namespace Server.Controllers
         {
             return Ok(_attendentService.FindByKindAttendent(kind));
         }
+
+        /////////////////////// Ayala 
+        [HttpGet("appointments")]
+        public IActionResult GetAppointmentsForAttendent([FromQuery] int attendentId,
+        [FromQuery] DateTime date)
+        {
+            try
+            {
+                var appointments = _attendentService.GetAppointmentsForDate(attendentId,
+date);
+                return Ok(appointments);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        //    [HttpGet("clients")]
+        //    public IActionResult GetClientsForAttendent([FromQuery] int attendentId)
+        //    {
+        //        try
+        //        {
+        //            var clients = _attendentService.GetClients(attendentId);
+        //            return Ok(clients);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return BadRequest(ex.Message);
+        //        }
+        //    }
+        //}
     }
 }

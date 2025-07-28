@@ -21,12 +21,12 @@ namespace Dal.Services
             databaseManager.Attendents.Add(item);
             databaseManager.SaveChanges();
         }
-
-
         public void Delete(int id)
         {
 
-            var attendentToDelete = databaseManager.Attendents.FirstOrDefault(attendentToDelete => attendentToDelete.Id == id);
+            var attendentToDelete =
+            databaseManager.Attendents.FirstOrDefault(attendentToDelete =>
+            attendentToDelete.Id == id);
             if (attendentToDelete != null)
             {
                 databaseManager.Attendents.Remove(attendentToDelete);
@@ -56,7 +56,9 @@ namespace Dal.Services
         {
             if (item == null)
                 throw new Exception("you don't insert attendent");
-            var attendentToUpdate = databaseManager.Attendents.FirstOrDefault(attendentToUpdate => attendentToUpdate.Id == item.Id);
+            var attendentToUpdate =
+databaseManager.Attendents.FirstOrDefault(attendentToUpdate =>
+attendentToUpdate.Id == item.Id);
             if (attendentToUpdate != null)
             {
                 attendentToUpdate.Id = item.Id;
@@ -72,6 +74,21 @@ namespace Dal.Services
             }
 
         }
+        ///////////////////// Ayala 
+        public List<ClinicAppointment> GetAppointmentsForAttendentAndDate(int
+            attendentId, DateTime date)
+        {
+            return databaseManager.ClinicAppointments
+                .Where(a => a.AttendentId == attendentId && a.Date.Equals(date))
+                .ToList();
+        }
+        //public List<Client> GetClientsForAttendent(int attendentId)
+        //{
+        //    return databaseManager.Clients
+        //        .Where(c => c.AttendentId == attendentId)
+        //        .ToList();
+        //}
 
     }
 }
+

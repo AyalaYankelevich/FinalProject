@@ -1,7 +1,51 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "H:\\Project\\FinalProject\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|c:\\users\\user\\desktop\\project\\bl\\services\\blclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|solutionrelative:bl\\services\\blclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D3DB5CF-F145-4D57-B92D-910301084A90}|Server\\Server.csproj|c:\\users\\user\\desktop\\project\\server\\controllers\\clintcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D3DB5CF-F145-4D57-B92D-910301084A90}|Server\\Server.csproj|solutionrelative:server\\controllers\\clintcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|c:\\users\\user\\desktop\\project\\bl\\services\\blclinicappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|solutionrelative:bl\\services\\blclinicappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D3DB5CF-F145-4D57-B92D-910301084A90}|Server\\Server.csproj|c:\\users\\user\\desktop\\project\\server\\controllers\\clinictappointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D3DB5CF-F145-4D57-B92D-910301084A90}|Server\\Server.csproj|solutionrelative:server\\controllers\\clinictappointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7579B9AD-F928-4E41-99DD-B546E86FA6F8}|Dal\\Dal.csproj|c:\\users\\user\\desktop\\project\\dal\\services\\clinicappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7579B9AD-F928-4E41-99DD-B546E86FA6F8}|Dal\\Dal.csproj|solutionrelative:dal\\services\\clinicappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|c:\\users\\user\\desktop\\project\\bl\\api\\iblattendent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|solutionrelative:bl\\api\\iblattendent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D3DB5CF-F145-4D57-B92D-910301084A90}|Server\\Server.csproj|c:\\users\\user\\desktop\\project\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D3DB5CF-F145-4D57-B92D-910301084A90}|Server\\Server.csproj|solutionrelative:server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7579B9AD-F928-4E41-99DD-B546E86FA6F8}|Dal\\Dal.csproj|c:\\users\\user\\desktop\\project\\dal\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7579B9AD-F928-4E41-99DD-B546E86FA6F8}|Dal\\Dal.csproj|solutionrelative:dal\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7579B9AD-F928-4E41-99DD-B546E86FA6F8}|Dal\\Dal.csproj|c:\\users\\user\\desktop\\project\\dal\\services\\attendentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7579B9AD-F928-4E41-99DD-B546E86FA6F8}|Dal\\Dal.csproj|solutionrelative:dal\\services\\attendentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|c:\\users\\user\\desktop\\project\\bl\\services\\blattendentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5C90270-382C-4CDD-A753-0BBC9BFCF2BF}|Bl\\Bl.csproj|solutionrelative:bl\\services\\blattendentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_USER_DESKTOP_PROJECT_DATABASE_MYDATABASE.MDF/True/SqlTable/dbo.ClinicAppointments.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +53,137 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ClinictAppointmentController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Server\\Controllers\\ClinictAppointmentController.cs",
+              "RelativeDocumentMoniker": "Server\\Controllers\\ClinictAppointmentController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Server\\Controllers\\ClinictAppointmentController.cs",
+              "RelativeToolTip": "Server\\Controllers\\ClinictAppointmentController.cs",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAuwGQAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:32:00.861Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IBLAttendent.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Bl\\API\\IBLAttendent.cs",
+              "RelativeDocumentMoniker": "Bl\\API\\IBLAttendent.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Bl\\API\\IBLAttendent.cs",
+              "RelativeToolTip": "Bl\\API\\IBLAttendent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:28:25.097Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Server\\Program.cs",
+              "RelativeDocumentMoniker": "Server\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Server\\Program.cs",
+              "RelativeToolTip": "Server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:11:10.693Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BLClinicAppointmentService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Bl\\Services\\BLClinicAppointmentService.cs",
+              "RelativeDocumentMoniker": "Bl\\Services\\BLClinicAppointmentService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Bl\\Services\\BLClinicAppointmentService.cs",
+              "RelativeToolTip": "Bl\\Services\\BLClinicAppointmentService.cs",
+              "ViewState": "AgIAANQAAAAAAAAAAAAAANsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:10:43.865Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BLClientService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Bl\\Services\\BLClientService.cs",
+              "RelativeDocumentMoniker": "Bl\\Services\\BLClientService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Bl\\Services\\BLClientService.cs",
+              "RelativeToolTip": "Bl\\Services\\BLClientService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA+wBgAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:10:27.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClintController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Server\\Controllers\\ClintController.cs",
+              "RelativeDocumentMoniker": "Server\\Controllers\\ClintController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Server\\Controllers\\ClintController.cs",
+              "RelativeToolTip": "Server\\Controllers\\ClintController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAuwBcAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:28:18.781Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ClinicAppointmentService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Dal\\Services\\ClinicAppointmentService.cs",
+              "RelativeDocumentMoniker": "Dal\\Services\\ClinicAppointmentService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Dal\\Services\\ClinicAppointmentService.cs",
+              "RelativeToolTip": "Dal\\Services\\ClinicAppointmentService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T16:30:06.182Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BLAttendentService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Bl\\Services\\BLAttendentService.cs",
+              "RelativeDocumentMoniker": "Bl\\Services\\BLAttendentService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Bl\\Services\\BLAttendentService.cs",
+              "RelativeToolTip": "Bl\\Services\\BLAttendentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:10:29.528Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AttendentService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Dal\\Services\\AttendentService.cs",
+              "RelativeDocumentMoniker": "Dal\\Services\\AttendentService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Dal\\Services\\AttendentService.cs",
+              "RelativeToolTip": "Dal\\Services\\AttendentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:10:12.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ClientService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Project\\Dal\\Services\\ClientService.cs",
+              "RelativeDocumentMoniker": "Dal\\Services\\ClientService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Project\\Dal\\Services\\ClientService.cs",
+              "RelativeToolTip": "Dal\\Services\\ClientService.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T17:10:09.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "dbo.ClinicAppointments.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_USER_DESKTOP_PROJECT_DATABASE_MYDATABASE.MDF/True/SqlTable/dbo.ClinicAppointments.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_USER_DESKTOP_PROJECT_DATABASE_MYDATABASE.MDF/True/SqlTable/dbo.ClinicAppointments.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-07-15T13:18:40.603Z"
             }
           ]
         }

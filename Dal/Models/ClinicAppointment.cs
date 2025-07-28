@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 namespace Dal.Models;
+using System.Text.Json.Serialization;
+using Dal.API;
 
 public partial class ClinicAppointment
 {
@@ -16,8 +18,10 @@ public partial class ClinicAppointment
     public int? ClinetId { get; set; }
 
     public int IsReserved { get; set; }
-
+    [JsonIgnore]
     public virtual Attendent Attendent { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual Client Clinet { get; set; } = null!;
+  
+
 }

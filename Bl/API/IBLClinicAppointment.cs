@@ -12,6 +12,8 @@ namespace Bl.API
     {
         //public void fUpdate(int attendentId, int clientId, Date_Hour date_Hour);
         public List<Date_Hour> FindByClientId(int id);
+        public List<Date_Hour> FindByAttedentId(int id);
         public List<DoctorName> FindByKindAttendent(int kind);
+        void BookAppointmentForClient(int appointmentId, int clientId);
     }
 }

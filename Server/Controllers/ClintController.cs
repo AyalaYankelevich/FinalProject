@@ -5,22 +5,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] // הבסיס הוא /api/Client
     [ApiController]
-
     public class ClientController : ControllerBase
     {
         private readonly IBLClient _clientService;
+
         public ClientController(IBl bl)
         {
             _clientService = bl.Clients;
         }
 
-        [HttpPut]
-        public ActionResult<BLClient> AddClient([FromQuery] BLClient c)
+        [HttpPost("create")] 
+        public ActionResult<BLClient> CreateClient([FromBody] BLClient c) // שינוי ל-[FromBody]
         {
-            _clientService.Create(c);
-            return c;
+            try
+            {
+                _clientService.Create(c);
+                return Ok(c); 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
@@ -58,8 +65,7 @@ namespace Server.Controllers
             }
         }
 
-
-        [HttpPost("update")]
+        [HttpPost("update")] // הערה: בדרך כלל משתמשים ב-HttpPut עבור עדכון
         public IActionResult UpdateClient([FromBody] BLClient client)
         {
             try
@@ -73,6 +79,4 @@ namespace Server.Controllers
             }
         }
     }
-
-
 }

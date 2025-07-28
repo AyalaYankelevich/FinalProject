@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import './ChooseAttendentKind.css'; 
 
 const kindToValue = {
   "Dentist": 2,
@@ -23,7 +24,7 @@ export default function ChooseAttendentKind({ onKindChosen }) {
   };
 
   return (
-    <Box sx={{ minWidth: 250, background: '#fafafa', padding: 3, borderRadius: 2 }}>
+    <Box className="choose-kind-box"> 
       <FormControl fullWidth>
         <InputLabel id="attendent-kind-label">Attendent Kind</InputLabel>
         <Select
@@ -38,8 +39,6 @@ export default function ChooseAttendentKind({ onKindChosen }) {
           <MenuItem value="Dentist">Dentist</MenuItem>
         </Select>
       </FormControl>
-
     </Box>
-    
   );
 }

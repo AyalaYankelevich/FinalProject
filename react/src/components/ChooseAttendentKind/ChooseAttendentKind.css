@@ -1,0 +1,8 @@
+
+.choose-kind-box {
+    min-width: 250px;
+    background: #fafafa;
+    padding: 24px; /* הגדלתי מ-3px כדי להתאים למקומות אחרים */
+    border-radius: 8px; /* שינוי מ-2px כדי להיות עקבי */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* הוספתי צל קל */
+}

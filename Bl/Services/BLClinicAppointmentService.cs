@@ -1,4 +1,5 @@
-﻿using Bl.API;
+﻿// Bl.Services.BLClinicAppointmentService.cs
+using Bl.API;
 using Bl.Models;
 using Dal.API;
 using Dal.Models;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bl.Services
 {
@@ -20,33 +22,37 @@ namespace Bl.Services
 
         public void Create(BLClinicAppointment item)
         {
-            var IsExists = _clinicAppointment.Read().FirstOrDefault(IsExists => IsExists.Id == item.Id);
-            if (IsExists != null)
+            var existingAppointment = _clinicAppointment.Read().FirstOrDefault(a => a.Id == item.Id);
+            if (existingAppointment == null)
             {
                 _clinicAppointment.Create(new ClinicAppointment
-                { 
-                    
-                        Id = item.Id,
-                        Date = item.Date,
-                        Hour = item.Hour,
-                      ClinetId = item.ClinetId,
+                {
+                    Id = item.Id,
+                    Date = item.Date,
+                    Hour = item.Hour,
+                    ClinetId = item.ClinetId,
                     AttendentId = item.AttendentId,
-                    IsReserved = 1
-                    });
-                   
+                    IsReserved = item.IsReserved
+                });
+            }
+            else
+            {
+                Console.WriteLine($"BLClinicAppointmentService.Create: Appointment with ID {item.Id} already exists, not creating a duplicate.");
             }
         }
 
         public void Delete(int id)
         {
-            var clinicAppointmentDelete = _clinicAppointment.Read().FirstOrDefault(clinicAppointmentDelete
-               => clinicAppointmentDelete.Id == id);
-            if (clinicAppointmentDelete != null)
-            {
-                _clinicAppointment.Delete(clinicAppointmentDelete);
-            }
+            //var clinicAppointmentToDelete = _clinicAppointment.Read().FirstOrDefault(ca => ca.Id == id);
+            //if (clinicAppointmentToDelete != null)
+            //{
+            //    _clinicAppointment.Delete(clinicAppointmentToDelete.Id);
+            //}
+            //else
+            //{
+            //    throw new Exception($"Appointment with ID {id} not found for deletion.");
+            //}
         }
-
 
         public List<BLClinicAppointment> Read()
         {
@@ -56,12 +62,12 @@ namespace Bl.Services
             {
                 result.Add(new BLClinicAppointment
                 {
-                  Id=item.Id,
+                    Id = item.Id,
                     Date = item.Date,
-                    Hour =item.Hour,
-                    AttendentId =item.AttendentId,
-                    ClinetId =item.ClinetId,
-                    IsReserved =item.IsReserved,
+                    Hour = item.Hour,
+                    AttendentId = item.AttendentId,
+                    ClinetId = item.ClinetId,
+                    IsReserved = item.IsReserved,
                 });
             }
             return result;
@@ -69,8 +75,7 @@ namespace Bl.Services
 
         public void Update(BLClinicAppointment item)
         {
-            var clinicAppointmentToUpdate = _clinicAppointment.Read().FirstOrDefault(clinicAppointmentToUpdate
-             => clinicAppointmentToUpdate.Id == item.Id);
+            var clinicAppointmentToUpdate = _clinicAppointment.Read().FirstOrDefault(ca => ca.Id == item.Id);
             if (clinicAppointmentToUpdate != null)
             {
                 _clinicAppointment.Update(new ClinicAppointment
@@ -80,18 +85,47 @@ namespace Bl.Services
                     Hour = item.Hour,
                     AttendentId = item.AttendentId,
                     ClinetId = item.ClinetId,
-                    IsReserved =1,
+                    IsReserved = item.IsReserved,
                 });
             }
+            else
+            {
+                throw new Exception($"Appointment with ID {item.Id} not found for update.");
+            }
         }
- 
+
+        // 👈 זו הפונקציה שאתה צריך להוסיף/לשנות!
+        public void BookAppointmentForClient(int appointmentId, int clientId)
+        {
+            var appointmentToBook = _clinicAppointment.Read()
+                                                      .FirstOrDefault(a => a.Id == appointmentId);
+
+            if (appointmentToBook == null)
+            {
+                throw new Exception($"Appointment with ID {appointmentId} not found.");
+            }
+
+            if (appointmentToBook.IsReserved == 1) // 1 מציין שתור שמור
+            {
+                throw new Exception($"Appointment with ID {appointmentId} is already reserved.");
+            }
+
+            // עדכון פרטי התור
+            appointmentToBook.ClinetId = clientId;
+            appointmentToBook.IsReserved = 1; // 1 מציין שהתור שמור
+
+            _clinicAppointment.Update(appointmentToBook); // קורא לשיטת העדכון בשכבת ה-DAL
+            Console.WriteLine($"Appointment {appointmentId} booked for client {clientId}.");
+        }
+
+
         public List<Date_Hour> FindByDoctor(string name)
         {
             List<Date_Hour> LS = new List<Date_Hour>();
             _clinicAppointment.Read().ForEach(
                 p =>
                 {
-                    if (p.Attendent.LastName == name)
+                    if (p.Attendent != null && p.Attendent.LastName == name)
                     {
                         LS.Add(new Date_Hour
                         {
@@ -110,7 +144,7 @@ namespace Bl.Services
             _clinicAppointment.Read().ForEach(
                 p =>
                 {
-                    if (p.Attendent.Id == id)
+                    if (p.Attendent != null && p.Attendent.Id == id)
                     {
                         LS.Add(new Date_Hour
                         {
@@ -122,31 +156,32 @@ namespace Bl.Services
 
             return LS;
         }
-        public List<MyAppointment> MyAppointment(int id) {
+
+        public List<MyAppointment> MyAppointment(int id)
+        {
             List<MyAppointment> LS = new List<MyAppointment>();
             _clinicAppointment.Read().ForEach(
-             p =>
-             {
-                 if (p.Clinet.Id == id)
-                 {
-                     LS.Add(new MyAppointment
-                     {
-                         Date = p.Date,
-                         Hour = p.Hour,
-              
-                     });
-                 }
-             });
+               p =>
+               {
+                   if (p.Clinet != null && p.Clinet.Id == id)
+                   {
+                       LS.Add(new MyAppointment
+                       {
+                           Date = p.Date,
+                           Hour = p.Hour,
+                       });
+                   }
+               });
             return LS;
         }
 
-         public List<Date_Hour> FindByClientId(int id)
+        public List<Date_Hour> FindByClientId(int id)
         {
             List<Date_Hour> LS = new List<Date_Hour>();
             _clinicAppointment.Read().ForEach(
                 p =>
                 {
-                    if (p.ClinetId== id)
+                    if (p.ClinetId == id)
                     {
                         LS.Add(new Date_Hour
                         {
@@ -159,17 +194,30 @@ namespace Bl.Services
             return LS;
         }
 
+        public List<Date_Hour> FindByAttedentId(int id)
+        {
+            List<Date_Hour> LS = new List<Date_Hour>();
+            _clinicAppointment.Read().ForEach(
+                p =>
+                {
+                    if (p.AttendentId == id)
+                    {
+                        LS.Add(new Date_Hour
+                        {
+                            Date = p.Date,
+                            Hour = p.Hour
+                        });
+                    }
+                });
+
+            return LS;
+        }
 
         public List<DoctorName> FindByKindAttendent(int kind)
         {
-            var now = DateTime.Now;
-
             var appointments = _clinicAppointment.Read();
-            Console.WriteLine("All appointments: " + appointments.Count);
-            var kindMatches = appointments.Where(p => p.Attendent.Kind == kind).ToList();
-            Console.WriteLine("Kind matches: " + kindMatches.Count);
+            var kindMatches = appointments.Where(p => p.Attendent != null && p.Attendent.Kind == kind).ToList();
             var reservedMatches = kindMatches.Where(p => p.IsReserved == 0).ToList();
-            Console.WriteLine("IsReserved == 0 matches: " + reservedMatches.Count);
             var result = reservedMatches
                 .GroupBy(p => p.Attendent.Id)
                 .Select(g =>
@@ -189,7 +237,4 @@ namespace Bl.Services
             return result;
         }
     }
-     
-
 }
-

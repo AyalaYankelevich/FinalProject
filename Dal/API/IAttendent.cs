@@ -11,5 +11,7 @@ namespace Dal.API
     public interface IAttendent : ICrud<Attendent>
     {
         public Attendent ReadByID(int id);
+        public List<ClinicAppointment> GetAppointmentsForAttendentAndDate(int
+            attendentId, DateTime date);
     }
 }
