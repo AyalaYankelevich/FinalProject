@@ -94,30 +94,81 @@ namespace Bl.Services
             }
         }
 
-        // 👈 זו הפונקציה שאתה צריך להוסיף/לשנות!
+        // // 👈 זו הפונקציה שאתה צריך להוסיף/לשנות!
+        // public void BookAppointmentForClient(int appointmentId, int clientId)
+        // {
+        //     var appointmentToBook = _clinicAppointment.Read()
+        //                                               .FirstOrDefault(a => a.Id == appointmentId);
+
+        //     if (appointmentToBook == null)
+        //     {
+        //         throw new Exception($"Appointment with ID {appointmentId} not found.");
+        //     }
+
+        //     if (appointmentToBook.IsReserved == 1) // 1 מציין שתור שמור
+        //     {
+        //         throw new Exception($"Appointment with ID {appointmentId} is already reserved.");
+        //     }
+
+        //     // עדכון פרטי התור
+        //     appointmentToBook.ClinetId = clientId;
+        //     appointmentToBook.IsReserved = 1; // 1 מציין שהתור שמור
+
+        //     _clinicAppointment.Update(appointmentToBook); // קורא לשיטת העדכון בשכבת ה-DAL
+        //     Console.WriteLine($"Appointment {appointmentId} booked for client {clientId}.");
+        // }
         public void BookAppointmentForClient(int appointmentId, int clientId)
         {
-            var appointmentToBook = _clinicAppointment.Read()
-                                                      .FirstOrDefault(a => a.Id == appointmentId);
-
-            if (appointmentToBook == null)
+            // שימוש ב-Transaction מבטיח שאם משהו נכשל באמצע, הכל חוזר לקדמותו (Atomic)
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                throw new Exception($"Appointment with ID {appointmentId} not found.");
+                try
+                {
+                    // 1. שליפה עם נעילה (Lock) - מונע ממשתמש אחר לקרוא את השורה הזו עד שנסיים
+                    var appointmentToBook = _context.Appointments
+                        .FirstOrDefault(a => a.Id == appointmentId);
+        
+                    // 2. בדיקה: האם התור קיים?
+                    if (appointmentToBook == null)
+                    {
+                        throw new KeyNotFoundException($"Appointment {appointmentId} not found.");
+                    }
+        
+                    // 3. בדיקה: האם התור כבר נתפס? (מקרה קצה קריטי)
+                    if (appointmentToBook.IsReserved == 1)
+                    {
+                        throw new InvalidOperationException($"Appointment {appointmentId} is already reserved by another client.");
+                    }
+        
+                    // 4. עדכון הנתונים
+                    appointmentToBook.ClientId = clientId;
+                    appointmentToBook.IsReserved = 1;
+                    appointmentToBook.UpdatedAt = DateTime.UtcNow; // תיעוד זמן השינוי
+        
+                    // 5. שמירה סופית בבסיס הנתונים
+                    _context.SaveChanges();
+        
+                    // אישור סופי של ה-Transaction
+                    transaction.Commit();
+        
+                    Console.WriteLine($"Success: Appointment {appointmentId} booked for client {clientId}.");
+                }
+                catch (InvalidOperationException ex)
+                {
+                    // טיפול במצב שהתור כבר תפוס (לוגיקה עסקית)
+                    transaction.Rollback();
+                    Console.WriteLine($"Booking Failed: {ex.Message}");
+                    throw; // זריקה מחדש כדי שה-API יחזיר שגיאה מתאימה (למשל 409 Conflict)
+                }
+                catch (Exception ex)
+                {
+                    // טיפול בשגיאות טכניות (בעיות ב-DB, תקשורת וכו')
+                    transaction.Rollback();
+                    Console.WriteLine($"System Error: {ex.Message}");
+                    throw new Exception("An internal error occurred during booking.");
+                }
             }
-
-            if (appointmentToBook.IsReserved == 1) // 1 מציין שתור שמור
-            {
-                throw new Exception($"Appointment with ID {appointmentId} is already reserved.");
-            }
-
-            // עדכון פרטי התור
-            appointmentToBook.ClinetId = clientId;
-            appointmentToBook.IsReserved = 1; // 1 מציין שהתור שמור
-
-            _clinicAppointment.Update(appointmentToBook); // קורא לשיטת העדכון בשכבת ה-DAL
-            Console.WriteLine($"Appointment {appointmentId} booked for client {clientId}.");
         }
-
 
         public List<Date_Hour> FindByDoctor(string name)
         {
